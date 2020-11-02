@@ -1,0 +1,30 @@
+program supoq3
+  implicit none
+  integer,parameter :: N=1000,dp=8, M=1000
+  integer :: i,j
+  real (kind=dp):: x(N) , y(N) , A(N,N),D
+
+  ! Initialize x and y
+  do j=1,N
+     x(j)=cos(real(j,dp))
+     y(j)=cos(2*real(j,dp))
+     do i=1,N
+        A(i,j)=sin(real(i-j+1,dp))
+     end do
+  end do
+
+  !need to transpose A as it is currently reversed
+  A=transpose(A)
+  !Evaluate y^T*A^T*A*x
+
+  print "(a12)","Initialised"
+  
+  do j=1,M
+     D=dot_product(y,matmul(transpose(A),matmul(A,x)))
+  end do
+  
+  print*,D
+        
+
+
+end program supoq3
